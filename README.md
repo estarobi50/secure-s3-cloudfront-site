@@ -61,3 +61,5 @@ User visits https://digitalcultureit.com
   Alias is free and works on the apex domain (naked domain) where CNAMEs are not allowed
 - AWS Shield Standard is automatically enabled on all CloudFront
   distributions at no extra cost
+- CloudFront automatically assigns a default SSL certificate (*.cloudfront.net)
+  out of the box — ACM is only needed when using a custom domain

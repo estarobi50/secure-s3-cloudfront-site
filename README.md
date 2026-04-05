@@ -5,7 +5,7 @@ Host a static HTML website on Amazon S3, served securely through a
 CloudFront CDN distribution with HTTPS, DDoS protection, and a custom domain.
 
 ## Architecture
-User visits https://digitalcultureit.com
+User visits https://digitalculture.com
   → Route 53 resolves DNS via A record (Alias) pointing to CloudFront
   → CloudFront receives the request (DDoS protected by AWS Shield Standard)
       → Cache HIT  → serves content instantly from edge location
@@ -22,14 +22,14 @@ User visits https://digitalcultureit.com
 ## Deployment Steps
 
   1. Create S3 bucket
-       - Name: digitalcultureit.com
+       - Name: digitalculture.com
        - Enable static website hosting (index.html / 404.html)
        - Uncheck "Block all public access"
-       - Attach public read bucket policy
+       - Attach custom cloudfront policy
 
   2. Request SSL certificate in ACM
        - Region: us-east-1 (required for CloudFront)
-       - Domains: digitalcultureit.com and *.digitalcultureit.com
+       - Domains: digitalculture.com and *.digitalculture.com
        - Validate via Route 53 (auto-creates CNAME record)
 
   3. Create CloudFront distribution
@@ -39,13 +39,12 @@ User visits https://digitalcultureit.com
        - Set default root object: index.html
 
   4. Configure Route 53
-       - A record (Alias) for digitalcultureit.com → CloudFront distribution
-       - A record (Alias) for www.digitalcultureit.com → same distribution
-
+       - A record (Alias) for digitalculture.com → CloudFront distribution
+       - A record (Alias) for www.digitalculture.com → same distribution
 
   5. Upload files to S3
        - Upload HTML/CSS/JS files via AWS Console or CLI
-       - aws s3 sync ./your-site s3://digitalcultureit.com --delete
+       - aws s3 sync ./your-site s3://digitalculture.com --delete
 
   6. Invalidate CloudFront cache (after any update)
        - aws cloudfront create-invalidation \
